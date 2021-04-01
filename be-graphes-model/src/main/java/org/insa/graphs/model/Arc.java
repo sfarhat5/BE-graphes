@@ -18,7 +18,7 @@ import java.util.List;
  *
  */
 public abstract class Arc {
-
+//Bech nehbel
     /**
      * @return Origin node of this arc.
      */
