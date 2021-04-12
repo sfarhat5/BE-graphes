@@ -94,13 +94,13 @@ public class Path {
         }
         else {
         	//Going through our list of nodes 
-        	for (int i =1; i < nodes.sizes(); ++i) {
+        	for (int i =1; i < nodes.size(); ++i) {
         		Arc ShortArc = null; 
         		//For each node : explore its list of arcs 
-        		for (Arc arc : nodes.fet(i-1).getSuccessors()) {
+        		for (Arc arc : nodes.get(i-1).getSuccessors()) {
         			if (arc.getDestination()== nodes.get(i)) {
         				if (ShortArc == null) {
-        					shortArc = arc;
+        					ShortArc = arc;
         				}else if (arc.getLength() < ShortArc.getLength()) {
         					ShortArc = arc;
         				}
