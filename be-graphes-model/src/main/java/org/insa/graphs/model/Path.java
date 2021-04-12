@@ -29,13 +29,43 @@ public class Path {
      * 
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
-     * 
-     * @deprecated Need to be implemented.
      */
     public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+        //List of nodes is empty 
+        if(nodes.size()== 0) {
+        	return new Path(graph); 
+        }
+        
+        //List of nodes is composed of one node 
+        else if(nodes.size()==1) {
+        	return new Path(graph, nodes.get(0)); 
+        }
+        //List of nodes is composed of two nodes at least 
+        else {
+        	//Going through our list of nodes 
+        	for (int i =1; i < nodes.size(); ++i) {
+        		Arc FastArc= null; 
+        		
+        		for (Arc arc: nodes.get(i-1).getSuccessors()) {
+        			if (arc.getDestination() == nodes.get(i)) {
+        				if (FastArc == null) {
+        					FastArc = arc; 
+        				}else if (arc.getMinimumTravelTime() < FastArc.getMinimumTravelTime()) {
+        					FastArc = arc; 
+        				}
+        			}
+        		}
+        		if (FastArc == null) {
+        			throw new IllegalArgumentException(); 
+        		}else {
+        			arcs.add(FastArc);
+        		}
+        	}
+        }
+        
+
         return new Path(graph, arcs);
     }
 
@@ -50,13 +80,40 @@ public class Path {
      * 
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
-     * 
-     * @deprecated Need to be implemented.
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+        // List of nodes if empty 
+        if (nodes.size()==0) {
+        	return new Path(graph, nodes.get(0)); 
+        }
+        //List of nodes is composed of one node 
+        else if (nodes.size()==1) {
+        	return new Path(graph, nodes.get(0)); 
+        }
+        else {
+        	//Going through our list of nodes 
+        	for (int i =1; i < nodes.sizes(); ++i) {
+        		Arc ShortArc = null; 
+        		//For each node : explore its list of arcs 
+        		for (Arc arc : nodes.fet(i-1).getSuccessors()) {
+        			if (arc.getDestination()== nodes.get(i)) {
+        				if (ShortArc == null) {
+        					shortArc = arc;
+        				}else if (arc.getLength() < ShortArc.getLength()) {
+        					ShortArc = arc;
+        				}
+        			}
+        		}
+        		
+        		if (ShortArc == null) {
+        			throw new IllegalArgumentException(); 
+        		}else {
+        			arcs.add(ShortArc); 
+        		}
+        	}
+        }
         return new Path(graph, arcs);
     }
 
