@@ -17,7 +17,6 @@ import org.insa.graphs.model.RoadInformation.RoadType;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
 public class PathTest {
 
     // Small graph use for tests
@@ -122,9 +121,7 @@ public class PathTest {
         assertFalse(invalidPath.isValid());
     }
 
-    
-	
-	@Test
+    @Test
     public void testGetLength() {
         assertEquals(0, emptyPath.getLength(), 1e-6);
         assertEquals(0, singleNodePath.getLength(), 1e-6);

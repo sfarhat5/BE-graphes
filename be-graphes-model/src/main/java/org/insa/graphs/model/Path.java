@@ -81,41 +81,41 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      */
-    public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
-            throws IllegalArgumentException {
+    public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes) throws IllegalArgumentException {
+        if (nodes.isEmpty()) {
+            return new Path(graph);
+        } else if (nodes.size() == 1) {
+            return new Path(graph, nodes.get(0));
+        }
+
         List<Arc> arcs = new ArrayList<Arc>();
-        // List of nodes if empty 
-        if (nodes.size()==0) {
-        	return new Path(graph, nodes.get(0)); 
+        for (int i = 0; i < nodes.size() - 1; i++) {
+            Node graphNode = graph.get(nodes.get(i).getId());
+            List<Arc> success = graphNode.getSuccessors();
+
+            Arc short_arc = null;
+            boolean isValid = false;
+            double minDist = Double.MAX_VALUE;
+
+            for (Arc arc : success) {
+                if (arc.getDestination().equals(nodes.get(i + 1))) {
+                    isValid = true;
+
+                    if (arc.getLength() < minDist) {
+                        minDist = arc.getLength();
+                        short_arc = arc;
+                    }
+                }
+            }
+
+            if (!isValid)
+                throw new IllegalArgumentException("List of nodes not valid");
+            arcs.add(short_arc);
         }
-        //List of nodes is composed of one node 
-        else if (nodes.size()==1) {
-        	return new Path(graph, nodes.get(0)); 
-        }
-        else {
-        	//Going through our list of nodes 
-        	for (int i =1; i < nodes.size(); ++i) {
-        		Arc ShortArc = null; 
-        		//For each node : explore its list of arcs 
-        		for (Arc arc : nodes.get(i-1).getSuccessors()) {
-        			if (arc.getDestination()== nodes.get(i)) {
-        				if (ShortArc == null) {
-        					ShortArc = arc;
-        				}else if (arc.getLength() < ShortArc.getLength()) {
-        					ShortArc = arc;
-        				}
-        			}
-        		}
-        		
-        		if (ShortArc == null) {
-        			throw new IllegalArgumentException(); 
-        		}else {
-        			arcs.add(ShortArc); 
-        		}
-        	}
-        }
+
         return new Path(graph, arcs);
     }
+    
 
     /**
      * Concatenate the given paths.
@@ -302,14 +302,12 @@ public class Path {
      * 
      */
     public double getTravelTime(double speed) {
-    	double Time = 0.0; 
-    	float Length = getLength(); 
-    	double Speed_m_s = speed * (10.0/36.0); 
-    	
-    	Time = Length / Speed_m_s; 
-        
+    	double Time = 0; 
+        for( int i =0; i<this.getArcs().size(); i++) {
+            Time += this.getArcs().get(i).getTravelTime(speed);
+        }
     
-        return 0;
+        return Time;
     }
 
     
