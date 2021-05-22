@@ -52,7 +52,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     	Label DestinationLabel = ArrayLabels[Destination.getId()];
     	
     	/*Insertrion de Origin dans le tas */
-    	OriginLabel.setCout(0);
+    	OriginLabel.setCost(0);
     	Tas.insert(OriginLabel);
     	
     	Label CurrentLabel = null ;
@@ -63,7 +63,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     			CurrentLabel.setMarqueTrue();
     			nb_marked ++ ;
     			
-    			System.out.println("Cout :" + CurrentLabel.getCout());
+    			System.out.println("Cout :" + CurrentLabel.getCost());
     			
     			/*Notify observers about the node being marked */
     			notifyNodeMarked(CurrentLabel.getSommetCourrant()) ;
@@ -80,14 +80,14 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     					notifyNodeReached(ArcIter.getDestination());
     					
     					if(!IterDestination.getMarque()) {
-    						if (!IterDestination.getMarque() && IterDestination.getCout() > CurrentLabel.getCout() + data.getCost(ArcIter)) {
+    						if (!IterDestination.getMarque() && IterDestination.getCost() > CurrentLabel.getCost() + data.getCost(ArcIter)) {
     							try {
     								Tas.remove(IterDestination);
     							} catch(ElementNotFoundException e) {}
     							
     							nb_explored ++ ;
     							
-    							IterDestination.setCout(CurrentLabel.getCout() + data.getCost(ArcIter));
+    							IterDestination.setCost(CurrentLabel.getCost() + data.getCost(ArcIter));
     							IterDestination.setPere(ArcIter);
     							
     							Tas.insert(IterDestination);

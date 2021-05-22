@@ -1,6 +1,6 @@
 package org.insa.graphs.algorithm.shortestpath;
 
-
+import org.insa.graphs.model.Arc;
 import org.insa.graphs.model.Node;
 
 public class Label implements Comparable<Label>{
@@ -30,7 +30,7 @@ public class Label implements Comparable<Label>{
 		return this.Marque ;
 	}
 	
-	public double getCoutTotal() {
+	public double getTotalCost() {
 		return this.Cout ;
 	}
 	
@@ -43,17 +43,17 @@ public class Label implements Comparable<Label>{
 		this.Marque = true ;
 	}
 	
-	public double getCout() {
+	public double getCost() {
 		return this.Cout ;
 	}
 	
-	public void setCout(double cout) {
+	public void setCost(double cout) {
 		this.Cout = cout ;
 	}
 	
 	@Override
 	public int compareTo(Label o) {
-		return Double.compare(this.getCoutTotal(), o.getCoutTotal()) ;
+		return Double.compare(this.getTotalCost(), o.getTotalCost()) ;
 	}
 
 }
