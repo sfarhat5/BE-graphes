@@ -137,12 +137,16 @@ public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
 
     @Override
     public void remove(E x) throws ElementNotFoundException {
-        // TODO:
+    	//Cette méthode permet de supprimer n'importe quel élément de l'arbre
+    	//avant d'attaquer l'algorithme on doit faire quelques tests
+    	//Si l'arbre est vide on renvoie une erreur 
     	if (this.isEmpty()) {
     		throw new ElementNotFoundException(x); 
     	}
+    	//Sinon on identifie l'index de l'élément à supprimer
     	else {
-    		int n = this.array.indexOf(x); 
+    		int n = this.array.indexOf(x);
+    		//Si l'élement n'existe pas alors on renvoie une erreur
     		if ((n==-1) || (n>= this.currentSize)) {
     			throw new ElementNotFoundException(x);
     			

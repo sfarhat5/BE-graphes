@@ -39,7 +39,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     	int nb_explored = 0 ;
     	int nb_marked = 0 ;
     	
-    	//Notifiy observers about the first event (origin processed)
+    	//Point d'origine
     	notifyOriginProcessed(data.getOrigin());
     	
     	/*Initialisation du tas */
@@ -51,7 +51,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     	Node Destination = data.getDestination() ;
     	Label DestinationLabel = ArrayLabels[Destination.getId()];
     	
-    	/*Insertrion de Origin dans le tas */
+    	/*Insertion de Origin dans le tas */
     	OriginLabel.setCost(0);
     	Tas.insert(OriginLabel);
     	
@@ -66,6 +66,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     			System.out.println("Cout :" + CurrentLabel.getCost());
     			
     			/*Notify observers about the node being marked */
+    			//On notifie à propos des noeuds marqués
     			notifyNodeMarked(CurrentLabel.getSommetCourrant()) ;
     			
     			List<Arc> ListSuccessors = CurrentLabel.getSommetCourrant().getSuccessors();
@@ -76,7 +77,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     				if (data.isAllowed(ArcIter)) {
     					Label IterDestination = ArrayLabels[ArcIter.getDestination().getId()];
     					
-    					/*Notify observers about the node being riched*/
+    					/*Notification du point de destination*/
     					notifyNodeReached(ArcIter.getDestination());
     					
     					if(!IterDestination.getMarque()) {
@@ -97,7 +98,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     			}
     	}
     	
-    	//La destination n'a pas de prédecesseur, la solution est infeasible
+    	//La destination n'a pas de prédecesseur, la solution est infaisable
     	if ((DestinationLabel.getPere()==null && (data.getOrigin().compareTo(data.getDestination()) != 0) ) || !DestinationLabel.getMarque()) {
     		System.out.println("Chemin impossible") ;
     		solution = new ShortestPathSolution (data, Status.INFEASIBLE);

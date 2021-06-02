@@ -10,6 +10,8 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
         super(data);
     }
     
+    //On redéfinit la fonction InitialiseLabels définie dans la classe DijkstraAlgorithm 
+    //Afin de créer à présent  un tableau de labels star de taille nbNoeuds
    protected Label[] InitialiseLabels() {
 	   LabelStar ArrayLabels[] = new LabelStar[nbNoeuds] ;
 	   List<Node> nodes = graphe.getNodes();
@@ -18,17 +20,18 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
 
 	   int MaxSpeed = Speed() ; 
 	   
+	   //Il s'agit du point de destination 
 	   Point DestinationP = data.getDestination().getPoint() ; 
 	   
+	   //On crée les labels star
 	   for (Node node : nodes) {
 		   ArrayLabels[node.getId()] = new LabelStar(node);
 		   
-		   // the cost is the distance between this point and the destination point, in meters
+		   //Le cout est la distance entre le point et la point de destination en métres
 		   if(data.getMode() == AbstractInputData.Mode.LENGTH) {
 			   Cost = node.getPoint().distanceTo(DestinationP);
 			   
-			   //or it's the time (ie Distance divided by speed) 
-	       	} else {
+			   //Si il d'agit du temps le plus court qui nous intéresse on divise cette longueur par la vitesse 
 	       		Cost = 3.6* node.getPoint().distanceTo(DestinationP) / MaxSpeed; 
 	       	}
 		   

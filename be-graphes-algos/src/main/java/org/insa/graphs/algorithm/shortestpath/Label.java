@@ -3,18 +3,20 @@ package org.insa.graphs.algorithm.shortestpath;
 import org.insa.graphs.model.Arc;
 import org.insa.graphs.model.Node;
 
+//Le label va nous donner les informations pour chaque noeud 
+//on en aura besoin pour l'algo de Dijkstra
 public class Label implements Comparable<Label>{
     protected Node SommetCourant; 
-    private Arc Pere; 
+    private Arc Pere; //D'après le sujet il est préférable de stocker l'arc et non le sommet
     private boolean Marque; 
     private double Cout; 
 
 
     public Label (Node SommetCourant) {
 		this.SommetCourant = SommetCourant;
-		this.Pere = null ;
-		this.Marque = false ;
-		this.Cout = Double.POSITIVE_INFINITY ;
+		this.Pere = null ; //Initialement le sommet n'a pas de père 
+		this.Marque = false ; //On dit que le sommet n'a pas été marqué
+		this.Cout = Double.POSITIVE_INFINITY ; //On initialise le cout à l'infinie
 	}
 	
 	/*Getters*/
